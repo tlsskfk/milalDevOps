@@ -53,21 +53,21 @@ Other considerations will be solved using other open-source tools, such as delet
 Since we already have both tools available in our Node server, let's try to use those.  Since SES already has some configuration available to upload straight to s3, all we need is some middleware.  Let's create a Lambda function that can do just that (next Section).
 
 Let's do another thing with SES.  Since we created a contact form that can hold a file and give certain parameters to the contactee, let's send the organization an email with all the details.  We can create a route that points to this --
-    import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-    const ses = new SESClient({
-      region,
-    });
-    export const sendEmail = async (req, res) => {
-      const { q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments,  } = req.body
-      const command = new SendEmailCommand({
-        Destination: {
-          ToAddresses: [processs.env.HOST_EMAIL],
-        },
-        Message: {
-          Body: {
-            Text: { Data: q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments, },
-          },
 
+      import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+      const ses = new SESClient({
+        region,
+      });
+      export const sendEmail = async (req, res) => {
+        const { q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments,  } = req.body
+        const command = new SendEmailCommand({
+          Destination: {
+            ToAddresses: [processs.env.HOST_EMAIL],
+          },
+          Message: {
+            Body: {
+              Text: { Data: q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments, },
+            },
           Subject: { Data: "SOME EMAIL TITLE" },
         },
         Source: process.env.ORG_HOST_EMAIL,
