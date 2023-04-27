@@ -27,6 +27,7 @@ def lambda_handler(event, context):
             s3 = boto3.client('s3')
             for attachment in attachments:
                 # Extract the attachment name and content
+                # todo: dynamic name to prevent overwriting
                 name = attachment['name']
                 content = attachment['content']
                 
@@ -39,14 +40,14 @@ def lambda_handler(event, context):
                 'body': 'All attachments were uploaded successfully'
             }
         else:
-            # Return a message if there were no attachments to upload
+            # Return a message if the email is not authorized
             return {
-                'statusCode': 200,
-                'body': 'No attachments to upload'
+                'statusCode': 401,
+                'body': 'Unauthorized'
             }
     else:
         # Return an error if the Docker container did not return a valid response
         return {
             'statusCode': 500,
-            'body': 'Error: Could not retrieve data from Docker container'
+            'body': 'Invalid format or other issue has occurred'
         }

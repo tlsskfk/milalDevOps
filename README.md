@@ -44,7 +44,7 @@
 #### 2.6.3 EC2
 #### 2.6.4 SES
 
-Email is a powerful tool.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted emails, and send emails to the kindle and have it loaded into your library.  How neat is that! 
+Email is a powerful tool.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted email addresses, and send emails to the kindle and have it loaded into your library.  How neat is that! 
 
 Given our organization, let's try to create a similar environment with email and uploading photos to the website.  There are two main considerations here.
     - Authenticating the email.
@@ -59,33 +59,96 @@ Let's do another thing with SES.  Since we created a contact form that can hold 
         region,
       });
       export const sendEmail = async (req, res) => {
-        const { q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments,  } = req.body
+        const { q1, q2, q3, comments  } = req.body
         const command = new SendEmailCommand({
           Destination: {
             ToAddresses: [processs.env.HOST_EMAIL],
           },
           Message: {
             Body: {
-              Text: { Data: q1, Other, q2, q2Boolean, q3, lastName, firstName, email, telNo, comments, },
+              Text: { Data: q1, q2, q3, comments },
             },
           Subject: { Data: "SOME EMAIL TITLE" },
         },
         Source: process.env.ORG_HOST_EMAIL,
       });
 
-      try {
-        let response = await ses.send(command);
-        // process data.
-        return response;
+        try {
+          let response = await ses.send(command);
+          // process data.
+          return response;
+        }
+        catch (err) {
+          console.log(err)
+        }
       }
-      catch (err) {
-        console.log(err)
-      }
-    }
--- 
+-- something like this
 [Example](https://github.com/tlsskfk/milalwebsite/blob/master/api/controllers/aws.js)
 
 #### 2.6.5 Lambda
+
+Ok.  Full dislaimer, the last code block at SES was taken from the lambda builder.  This time, we will need to connect SES to the Node Server using a lambda function and a exposed NodePort container service.
+Let's login to AWS and create the lambda function first -- 
+
+      import boto3
+      import requests
+      import json
+
+      def lambda_handler(event, context):
+          
+          # Extract the email header and attachments from the incoming email
+          message = event['Records'][0]['Sns']['Message']
+          header = message['headers']
+          attachments = message['attachments']
+          
+          # Specify the host and port of the Docker container
+          host = 'my-docker-host.com'
+          port = '8080'
+          
+          # Construct the URL of the Docker container
+          url = f'http://{host}:{port}/myapp'
+          
+          # Send the email header to the Docker container and receive the response
+          response = requests.post(url, data=json.dumps(header))
+          
+          # Check the response and process the attachments if the data is true
+          if response.status_code == 200:
+              data = response.json()
+              if data:
+                  # Upload each attachment to a separate S3 bucket object
+                  s3 = boto3.client('s3')
+                  for attachment in attachments:
+                      # Extract the attachment name and content
+                      name = attachment['name']
+                      content = attachment['content']
+                      
+                      # Upload the attachment to an S3 bucket
+                      s3.put_object(Bucket='my-s3-bucket', Key=name, Body=content)
+                  
+                  # Return a success message if all attachments were uploaded
+                  return {
+                      'statusCode': 200,
+                      'body': 'All attachments were uploaded successfully'
+                  }
+              else:
+                # Return a message if the email is not authorized
+                return {
+                    'statusCode': 401,
+                    'body': 'Unauthorized'
+                }
+        else:
+            # Return an error if the Docker container did not return a valid response
+            return {
+                'statusCode': 500,
+                'body': 'Invalid format or other issue has occurred'
+            }
+
+-- Then we can write our complimentary Node.js Code to return --
+
+
+-- something like this
+[Example](https://github.com/tlsskfk/milalDevOps/blob/main/lambda/emailToS3.py)
+
 #### 2.6.6 Route53
 
 # 3. Kubernetes
