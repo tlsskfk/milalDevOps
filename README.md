@@ -143,7 +143,33 @@ Let's login to AWS and create the lambda function first --
                 'body': 'Invalid format or other issue has occurred'
             }
 
--- Then we can write our complimentary Node.js Code to return --
+-- Let's test this, compressing the packages needed to run this environment and upload it to lambda.  Json should already be available in the Python Library lambda runs on, so you can skip that.  You're going to move to that directory in bash, run a virtual environment, pip install, and zip the needed files.  If you're using windows, you can download 7-Zip and create a .bashrc file in your home directory like this by running nano ~/.bashrc --
+
+      export PATH=$PATH:path/to/7-zip
+
+-- then in the cli you can source ~/.bashrc and use any exports there.  Let's go back to the cli and do --
+
+      python -m venv venv
+
+-- This will initialize a venv folder called venv in the directory, and you can rull the script using -- 
+
+      source venv/Scripts/activate
+
+-- Then run --
+
+      pip install boto3 requests
+
+-- Then save those dependencies to a requirements.txt file using --
+
+      pip freeze > requirements.txt
+
+-- compress using 7zip --
+
+      7z a lambda_function.zip lamdba_function.py boto3 requests --
+
+-- Now we can upload our function to lambda and an email payload [example](lambda/event.json)
+
+Then we can write our complimentary Node.js Code to return --
 
 
 -- something like this
