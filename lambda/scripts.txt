@@ -1,0 +1,1 @@
+7z a -tzip lambda_function.zip lambda_function.py venv/lib/site-packages/boto3 venv/lib/site-packages/requests venv/lib/site-packages/urllib3 venv/lib/site-packages/charset_normalizer venv/lib/site-packages/certifi venv/lib/site-packages/idna 
