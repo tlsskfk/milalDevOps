@@ -3,3 +3,4 @@ site-packages/
 venv
 .env
 .tfvars
+.terraform
