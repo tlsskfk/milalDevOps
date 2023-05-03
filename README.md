@@ -54,7 +54,7 @@ Given our organization, let's try to create a similar environment with email and
 Other considerations will be solved using other open-source tools, such as deleting photos.
 Since we already have both tools available in our Node server, let's try to use those.  Since SES already has some configuration available to upload straight to s3, all we need is some middleware.  Let's create a Lambda function that can do just that (next Section).
 
-Let's do another thing with SES.  Since we created a contact form that can hold a file and give certain parameters to the contactee, let's send the organization an email with all the details.  We can create a route that points to this --
+Let's do another thing with SES.  Since we created a contact form that can hold a file and give certain parameters to the contactee, let's send the organization an email with all the details.  We can create a route that points to this 
 
       import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
       const ses = new SESClient({
@@ -84,13 +84,13 @@ Let's do another thing with SES.  Since we created a contact form that can hold 
           console.log(err)
         }
       }
--- something like this
+ something like this
 [Example](https://github.com/tlsskfk/milalwebsite/blob/master/api/controllers/aws.js)
 
 #### 2.6.5 Lambda
 
 Ok.  Full dislaimer, the last code block at SES was taken from the lambda builder.  This time, we will need to connect SES to the Node Server using a lambda function and a exposed NodePort container service.
-Let's login to AWS and create the lambda function first -- 
+Let's login to AWS and create the lambda function first  
 
       import boto3
       import requests
@@ -145,36 +145,36 @@ Let's login to AWS and create the lambda function first --
                 'body': 'Invalid format or other issue has occurred'
             }
 
--- Let's test this, compressing the packages needed to run this environment and upload it to lambda.  Json should already be available in the Python Library lambda runs on, so you can skip that.  You're going to move to that directory in bash, run a virtual environment, pip install, and zip the needed files.  If you're using windows, you can download 7-Zip and create a .bashrc file in your home directory like this by running nano ~/.bashrc --
+ Let's test this, compressing the packages needed to run this environment and upload it to lambda.  Json should already be available in the Python Library lambda runs on, so you can skip that.  You're going to move to that directory in bash, run a virtual environment, pip install, and zip the needed files.  If you're using windows, you can download 7-Zip and create a .bashrc file in your home directory like this by running nano ~/.bashrc 
 
       export PATH=$PATH:path/to/7-zip
 
--- then in the cli you can source ~/.bashrc and use any exports there.  Let's go back to the cli and do --
+ then in the cli you can source ~/.bashrc and use any exports there.  Let's go back to the cli and do 
 
       python -m venv venv
 
--- This will initialize a venv folder called venv in the directory, and you can rull the script using -- 
+ This will initialize a venv folder called venv in the directory, and you can rull the script using  
 
       source venv/Scripts/activate
 
--- Then run --
+ Then run 
 
       pip install boto3 requests
 
--- Then save those dependencies to a requirements.txt file using --
+ Then save those dependencies to a requirements.txt file using 
 
       pip freeze > requirements.txt
 
--- compress using 7zip --
+ compress using 7zip 
 
-      7z a lambda_function.zip lamdba_function.py boto3 requests --
+      7z a lambda_function.zip lamdba_function.py boto3 requests 
 
--- Now we can upload our function to lambda and an email payload [example](lambda/event.json)
+ Now we can upload our function to lambda and an email payload [example](lambda/event.json)
 
-Then we can write our complimentary Node.js Code to return --
+Then we can write our complimentary Node.js Code to return 
 
 
--- something like this
+ something like this
 [Example](https://github.com/tlsskfk/milalDevOps/blob/main/lambda/emailToS3.py)
 
 #### 2.6.6 Route53
@@ -195,14 +195,14 @@ Let's create a credentials script.  I am saving to my .bashrc file in the home d
 
       ls -la ~
 
--- Since it starts with a period you will need the -a tag since it would normally be hidden.  Then you would put this script in --
+ Since it starts with a period you will need the -a tag since it would normally be hidden.  Then you would put this script in 
 
       export AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY
       export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_AWS_ACCESS_KEY
 
--- This way, whenever you start a new BASH process, your session should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply in the directory of your main.tf file.
+ This way, whenever you start a new BASH process, your session should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply in the directory of your main.tf file.
 
-Use a boilerplate terraform file -- you can find one in the docs/tutorials of the website, and terraform destroy after.
+Use a boilerplate terraform file (you can find one in the docs/tutorials of the website) and terraform destroy after.
 
 # 6. Jenkins
 ## 6.1 ENV Variables
