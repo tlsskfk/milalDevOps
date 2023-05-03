@@ -23,7 +23,7 @@
 - [4. Ansible](#4-ansible)
 - [5. Terraform](#5-terraform)
   - [5.1 Initialize Terraform](#51-initialize-terraform)
-        - [Prerequesite: you need to have an authenticated account](#prerequesite-you-need-to-have-an-authenticated-account)
+        - [Prerequisite: you need to have an authenticated account](#prerequisite-you-need-to-have-an-authenticated-account)
 - [6. Jenkins](#6-jenkins)
   - [6.1 ENV Variables](#61-env-variables)
   - [6.2 Github](#62-github)
@@ -190,17 +190,22 @@ Then we can write our complimentary Node.js Code to return --
 
 ## 5.1 Initialize Terraform
 Let's save Terraform to our Path Environment variable, after install, letting us use the Terraform function from anywhere.
-/n
-##### Prerequesite: you need to have an authenticated account
+##### Prerequisite: you need to have an authenticated account
 Let's create a credentials script.  I am saving to my .bashrc file in the home directory.  You may or may not have one.  You can check using 
-    ls -la ~
+
+      ls -la ~
+
 -- Since it starts with a period you will need the -a tag since it would normally be hidden.  Then you would put this script in --
-    export AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY
-    export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_AWS_ACCESS_KEY
+
+      export AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY
+      export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_AWS_ACCESS_KEY
+
 -- This way, whenever you start a new BASH process, all you need to do is -- 
-    source ~/.bashrc
+
+      source ~/.bashrc
+
 -- and this should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply using your main.tf file.
-/n
+
 Use a boilerplate terraform file -- you can find one in the docs/tutorials of the website, and terraform destroy after.
 
 # 6. Jenkins
