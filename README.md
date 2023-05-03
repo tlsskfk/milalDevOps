@@ -200,11 +200,7 @@ Let's create a credentials script.  I am saving to my .bashrc file in the home d
       export AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY
       export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_AWS_ACCESS_KEY
 
--- This way, whenever you start a new BASH process, all you need to do is -- 
-
-      source ~/.bashrc
-
--- and this should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply using your main.tf file.
+-- This way, whenever you start a new BASH process, your session should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply in the directory of your main.tf file.
 
 Use a boilerplate terraform file -- you can find one in the docs/tutorials of the website, and terraform destroy after.
 
