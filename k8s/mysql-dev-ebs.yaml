@@ -9,7 +9,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   awsElasticBlockStore:
-    volumeID: vol-00155022e34a203ca
+    volumeID: envFrom-mysql-dev-ebs-id
     fsType: ext4
 
 ---

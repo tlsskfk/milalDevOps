@@ -18,8 +18,9 @@
       - [2.6.6 Route53](#266-route53)
 - [3. Kubernetes](#3-kubernetes)
   - [3.1 Pod Designs](#31-pod-designs)
-  - [3.2 Services](#32-services)
-  - [3.2 Helm Chart](#32-helm-chart)
+  - [3.2 Secrets](#32-secrets)
+  - [3.3 Services](#33-services)
+  - [3.4 Helm Chart](#34-helm-chart)
 - [4. Ansible](#4-ansible)
 - [5. Terraform](#5-terraform)
   - [5.1 Initialize Terraform](#51-initialize-terraform)
@@ -181,8 +182,34 @@ Then we can write our complimentary Node.js Code to return
 
 # 3. Kubernetes
 ## 3.1 Pod Designs
-## 3.2 Services
-## 3.2 Helm Chart
+## 3.2 Secrets
+We can create a list of key-value pair secrets in a secrets yaml file as shown in these [docs](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
+
+For now, lets create a secrets file using kubectl.
+For the MYSQL container, we will need the EBS_ID ...
+
+      kubectl create secret generic mysql-dev-ebs-id --from-literal=ebs-id=YOUR_EBS_ID
+
+Then,we can create a secrets.yaml file like so
+
+      apiVersion: v1  
+        kind: Pod 
+        metadata:
+          name: envfrom-secret
+        spec:
+          containers:
+          - name: milal-mysql
+            image: mysql
+            envFrom:
+            - secretRef:
+                name: mysql-dev-ebs-id
+
+Then kubectl create the file
+
+      kubectl create -f FILE_LOCATION
+
+## 3.3 Services
+## 3.4 Helm Chart
 
 # 4. Ansible
 
