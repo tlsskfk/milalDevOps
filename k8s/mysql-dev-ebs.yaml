@@ -9,8 +9,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   awsElasticBlockStore:
-    volumeID: envFrom-mysql-dev-ebs-id
+    volumeID: $(volumeID)
     fsType: ext4
+    volumeHandle: $(milal-ebs-secret)
 
 ---
 
