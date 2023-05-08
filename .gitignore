@@ -4,3 +4,4 @@ venv
 .env
 .tfvars
 .terraform
+k8s/secretScripts/
