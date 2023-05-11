@@ -11,7 +11,7 @@ spec:
   awsElasticBlockStore:
     volumeID: $(volumeID)
     fsType: ext4
-    volumeHandle: $(milal-ebs-secret)
+    volumeHandle: $(volumeHandleID)
 
 ---
 
