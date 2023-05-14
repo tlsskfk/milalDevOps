@@ -11,7 +11,6 @@ spec:
   awsElasticBlockStore:
     volumeID: $(volumeID)
     fsType: ext4
-    volumeHandle: $(volumeHandleID)
 
 ---
 

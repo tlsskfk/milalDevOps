@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: milal-mysql
+spec:
+  containers:
+    - name: mysql
+      image: mysql:latest
+      volumeMounts:
+        - name: mysql-volume
+          mountPath: /var/lib/mysql
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: $(mysqlPassword)
+        - name: MYSQL_DATABASE
+          value: blog
+  volumes:
+    - name: mysql-volume
+      persistentVolumeClaim:
+        claimName: mysql-pvc
