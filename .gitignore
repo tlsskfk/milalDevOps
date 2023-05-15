@@ -5,3 +5,4 @@ venv
 .tfvars
 .terraform
 env.sh
+.DS_Store
