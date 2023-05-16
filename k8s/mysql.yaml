@@ -11,7 +11,10 @@ spec:
           mountPath: /var/lib/mysql
       env:
         - name: MYSQL_ROOT_PASSWORD
-          value: $(mysqlPassword)
+          valueFrom:
+            secretKeyRef:
+              name: milal-mysql-root-secret
+              key: mysqlPassword
         - name: MYSQL_DATABASE
           value: blog
   volumes:
