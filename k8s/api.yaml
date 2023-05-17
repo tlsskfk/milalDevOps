@@ -6,3 +6,35 @@ spec:
   containers:
     - name: node
       image: tlsskfk/milal-api:v1
+      env:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        - name: 
+        - valueFrom:
+          configMapKeyRef:
+            name:
+            key:
+        

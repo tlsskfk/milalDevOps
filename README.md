@@ -40,6 +40,31 @@
 ## 2.3 Node
 ## 2.4 MySQL
 ## 2.5 Docker
+
+Let's go to the client and api folder and create a dockerfile in each.
+It should be simple as to not complicate the CICD process later on.
+
+For the API:
+
+        FROM node:18-alpine
+        WORKDIR /api
+        COPY . .
+        RUN npm install --production
+        CMD ["node", "index.js"]
+        EXPOSE 8602
+
+and for the client:
+
+        FROM node:18-alpine
+        WORKDIR /client
+        COPY package*.json ./
+        RUN npm install
+        COPY . .
+        RUN npm run build
+        CMD ["npx", "serve", "-s", "-l", "8601", "build"]
+
+just make sure to add node_modules and .env to your dockerignore.  We wouldn't want to clutter up the image unnecessarily or expose secrets.
+
 #### 2.5.1 DockerHub
 ## 2.6 AWS
 #### 2.6.1 AWS-sdk
@@ -47,7 +72,7 @@
 #### 2.6.3 EC2
 #### 2.6.4 SES
 
-Email is a powerful tool.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted email addresses, and send emails to the kindle and have it loaded into your library.  How neat is that! 
+Email is a familiat GUI.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted email addresses, and send emails to the kindle and have it loaded into your library.  How neat is that! 
 
 Given our organization, let's try to create a similar environment with email and uploading photos to the website.  There are two main considerations here.
     - Authenticating the email.
@@ -85,7 +110,7 @@ Let's do another thing with SES.  Since we created a contact form that can hold 
           console.log(err)
         }
       }
- something like this
+something like this
 [Example](https://github.com/tlsskfk/milalwebsite/blob/master/api/controllers/aws.js)
 
 #### 2.6.5 Lambda
