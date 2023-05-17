@@ -19,8 +19,9 @@
 - [3. Kubernetes](#3-kubernetes)
   - [3.1 Pod Designs](#31-pod-designs)
   - [3.2 Secrets](#32-secrets)
-  - [3.3 Services](#33-services)
-  - [3.4 Helm Chart](#34-helm-chart)
+  - [3.3 ConfigMaps](#33-configmaps)
+  - [3.4 Services](#34-services)
+  - [3.5 Helm Chart](#35-helm-chart)
 - [4. Ansible](#4-ansible)
 - [5. Terraform](#5-terraform)
   - [5.1 Initialize Terraform](#51-initialize-terraform)
@@ -247,8 +248,27 @@ Then kubectl create the file
 
       kubectl create -f FILE_LOCATION
 
-## 3.3 Services
-## 3.4 Helm Chart
+## 3.3 ConfigMaps
+
+For exposable configuration variables, we can create a config map.
+You can go through the [docs](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) and see which method is best for your case scenario.
+I think in most cases, a mixture of an imperative and key-pair.txt file is best if you're going from development to production. Let's move the exposable key-value pairs from our api env and call it apiConfig.txt, then output it to a yaml file.  We can now do
+
+        kubectl create cm [name] --from-file=apiConfig.txt
+
+name being the name you want to give to your configmap.  You can now
+
+        kubectl get cm
+
+to make sure the cm loaded properly, and save it to yaml for readability
+
+        kubectl get [name] -o YAML
+
+
+
+
+## 3.4 Services
+## 3.5 Helm Chart
 
 # 4. Ansible
 
