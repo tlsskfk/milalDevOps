@@ -6,35 +6,37 @@ spec:
   containers:
     - name: node
       image: tlsskfk/milal-api:v1
+      envFrom:
+        - configMapRef:
+            name: api-config-map
       env:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        - name: 
-        - valueFrom:
-          configMapKeyRef:
-            name:
-            key:
-        
+        - name: DB_MYSQL_PW
+          valueFrom:
+            secretKeyRef:
+              name: milal-mysql-root-secret
+              key: mysqlPassword
+        - name: REACT_APP_GAPI_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: gapi-id
+              key: id
+        - name: REACT_APP_GAPI_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: gapi-secret
+              key: secret
+        - name: REACT_APP_DB_JWT_SIGN_KEY
+          valueFrom:
+            secretKeyRef:
+              name: jwt-sign-key
+              key: key
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-id
+              key: id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: secret
