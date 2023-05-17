@@ -252,17 +252,7 @@ Then kubectl create the file
 
 For exposable configuration variables, we can create a config map.
 You can go through the [docs](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) and see which method is best for your case scenario.
-I think in most cases, a mixture of an imperative and key-pair.txt file is best if you're going from development to production. Let's move the exposable key-value pairs from our api env and call it apiConfig.txt, then output it to a yaml file.  We can now do
-
-        kubectl create cm [name] --from-file=apiConfig.txt
-
-name being the name you want to give to your configmap.  You can now
-
-        kubectl get cm
-
-to make sure the cm loaded properly, and save it to yaml for readability
-
-        kubectl get [name] -o YAML
+I think in most cases, a mixture of an imperative and key-pair.txt file is best if you're going from development to production. Let's move the exposable key-value pairs from our api env and add it to our yaml file, just remember to put a | symbol
 
 
 
