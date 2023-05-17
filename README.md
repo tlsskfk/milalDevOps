@@ -64,15 +64,29 @@ and for the client:
         CMD ["npx", "serve", "-s", "-l", "8601", "build"]
 
 just make sure to add node_modules and .env to your dockerignore.  We wouldn't want to clutter up the image unnecessarily or expose secrets.
+We can then, in each home directory, we can now go to the cli and
+
+        docker build -t YOUR_REPOSITORY_NAME/IMAGE_NAME:VERSION .
+
+Don't forget the period.
+Later, we can upload to our repository (make sure you have them first -- you can build it on dockerHub) using 
+
+        docker push YOUR_REPOSITORY_NAME/IMAGE_NAME:VERSION
+
+It is recommended that you always version your images.
 
 #### 2.5.1 DockerHub
+
+
+
+
 ## 2.6 AWS
 #### 2.6.1 AWS-sdk
 #### 2.6.2 S3
 #### 2.6.3 EC2
 #### 2.6.4 SES
 
-Email is a familiat GUI.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted email addresses, and send emails to the kindle and have it loaded into your library.  How neat is that! 
+Email is a familiar GUI, we can use that.  With the right containers, email can be used as an extremely well-designed api.  Consider the kindle.  If you want to load your own pdf to your kindle, you can set the accepted email addresses, and send emails to the kindle and have it loaded into your library.  How neat is that! 
 
 Given our organization, let's try to create a similar environment with email and uploading photos to the website.  There are two main considerations here.
     - Authenticating the email.
