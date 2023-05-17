@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: node
-      image: tlsskfk/milal-api:v1
+      image: tlsskfk/milal-api:v1.1
       envFrom:
         - configMapRef:
             name: api-config-map
