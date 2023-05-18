@@ -3,11 +3,12 @@ kind: ConfigMap
 metadata:
   name: api-config-map
 data:
-  DB_HOST: localhost
+  DB_HOST: mysql-svc
   DB_USER: root
   DB_NAME: blog
   NODE_ENV: production
   AWS_REGION: us-east-1
+  DB_PORT: '3306'
   # DB_MYSQL_PW:
   #   valueFrom:
   #     secretKeyRef:
