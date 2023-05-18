@@ -2,9 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: milal-mysql
+  labels:
+    app: milal-mysql
 spec:
   containers:
-    - name: mysql
+    - name: milal-mysql
       image: mysql:latest
       volumeMounts:
         - name: mysql-volume
