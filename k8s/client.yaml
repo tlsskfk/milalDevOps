@@ -2,7 +2,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: milal-client
+  labels:
+    app: milal-client
 spec:
   containers:
     - name: react-app
-      image: tlsskfk/milal-client:v1
+      image: tlsskfk/milal-client:v1.1.6
+      env:
+        - name: VITE_PROXY_ADDRESS
+          value: "http://10.111.202.155:8600"
