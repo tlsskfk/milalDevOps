@@ -3,11 +3,9 @@ kind: Service
 metadata:
   name: api-svc
 spec:
-  type: NodePort
   selector:
     app: milal-api
   ports:
     - protocol: TCP
       port: 8600
       targetPort: 8600
-      nodePort: 31000

@@ -3,11 +3,9 @@ kind: Service
 metadata:
   name: client-svc
 spec:
-  type: NodePort
   selector:
     app: milal-client
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 31001
