@@ -31,7 +31,26 @@ resource "aws_subnet" "subnet-1-public" {
   availability_zone = "us-east-1a"
 }
 
-
+// security group
+resource "aws_security_group" "ingress-all" {
+name = "allow-all-sg"
+vpc_id = "${aws_vpc.milal-vpc.id}"
+ingress {
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+from_port = 22
+    to_port = 22
+    protocol = "tcp"
+  }
+// Terraform removes the default rule, normally aws gives us
+  egress {
+   from_port = 0
+   to_port = 0
+   protocol = "-1"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+}
 
 //k8s cluster ec2
 resource "aws_instance" "milal_cluster" {
