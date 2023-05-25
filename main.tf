@@ -24,6 +24,15 @@ resource "aws_vpc" "milal-vpc" {
   }
 }
 
+// subnets
+resource "aws_subnet" "subnet-1-public" {
+  cidr_block = "${cidrsubnet(aws_vpc.milal-vpc.cidr_block, 3, 1)}"
+  vpc_id = "${aws_vpc.milal-vpc.id}"
+  availability_zone = "us-east-1a"
+}
+
+
+
 //k8s cluster ec2
 resource "aws_instance" "milal_cluster" {
     ami           = "ami-0557a15b87f6559cf"
