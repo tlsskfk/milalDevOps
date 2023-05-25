@@ -1,0 +1,31 @@
+apiVersion: v2
+name: my-chart
+version: 1.0.0
+appVersion: 1.0.0
+description: A Helm chart for deploying My Application
+
+maintainers:
+  - name: John Doe
+    email: john@example.com
+
+keywords:
+  - my-app
+  - helm
+  - kubernetes
+
+home: https://github.com/myorg/my-chart
+
+sources:
+  - https://github.com/myorg/my-chart
+
+dependencies:
+  - name: nginx
+    version: 1.2.3
+    repository: https://charts.example.com
+
+icon: https://raw.githubusercontent.com/myorg/my-chart/master/logo.png
+
+api:
+  stability: stable
+
+icon: https://raw.githubusercontent.com/myorg/my-chart/master/logo.png
