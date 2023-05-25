@@ -10,45 +10,41 @@ variable "availability_zone" {
     default = "us-east-1a"
 }
 
-variable "" {
-    default = ""
-}
-
 // vpc
 resource "aws_vpc" "milal-vpc" {
   cidr_block = "10.0.0.0/24"
-  enable_dns_hostnames = true
-  enable_dns_support = true
-  tags {
+  enable_dns_hostnames  = true
+  enable_dns_support    = true
+  tags                  = {
     Name = "milal-vpc"
   }
 }
 
 // subnets
 resource "aws_subnet" "subnet-1-public" {
-  cidr_block = "${cidrsubnet(aws_vpc.milal-vpc.cidr_block, 3, 1)}"
-  vpc_id = "${aws_vpc.milal-vpc.id}"
+  cidr_block        = "${cidrsubnet(aws_vpc.milal-vpc.cidr_block, 3, 1)}"
+  vpc_id            = "${aws_vpc.milal-vpc.id}"
   availability_zone = "us-east-1a"
 }
 
 // security group
-resource "aws_security_group" "ingress-all" {
-name = "allow-all-sg"
+resource "aws_security_group" "milal-ingress-ssh" {
+name   = "allow-all-sg"
 vpc_id = "${aws_vpc.milal-vpc.id}"
 ingress {
     cidr_blocks = [
       "0.0.0.0/0"
     ]
-from_port = 22
-    to_port = 22
-    protocol = "tcp"
+from_port     = 22
+    to_port   = 22
+    protocol  = "tcp"
   }
 // Terraform removes the default rule, normally aws gives us
   egress {
-   from_port = 0
-   to_port = 0
-   protocol = "-1"
-   cidr_blocks = ["0.0.0.0/0"]
+   from_port    = 0
+   to_port      = 0
+   protocol     = "-1"
+   cidr_blocks  = ["0.0.0.0/0"]
  }
 }
 
