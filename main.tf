@@ -10,6 +10,9 @@ variable "availability_zone" {
     default = "us-east-1a"
 }
 
+variable "ami_key_pair_name" {
+    default = ""
+}
 // vpc
 resource "aws_vpc" "milal-vpc" {
   cidr_block = "10.0.0.0/24"
@@ -18,6 +21,11 @@ resource "aws_vpc" "milal-vpc" {
   tags                  = {
     Name = "milal-vpc"
   }
+}
+// public eip
+resource "aws_eip" "ip-milal-public" {
+  instance = "${aws_instance.milal_cluster.id}"
+  vpc      = true
 }
 
 // subnets
@@ -52,7 +60,14 @@ from_port     = 22
 resource "aws_instance" "milal_cluster" {
     ami           = "ami-0557a15b87f6559cf"
     instance_type = "t2.micro"
-    
+    key_name = "${var.ami_key_pair_name}"
+    security_groups = ["${aws_security_group.ingress-all-test.id}"]
+
+    tags {
+        Name = "${var.ami_name}"
+      }
+    subnet_id = "${aws_subnet.subnet-1-public.id}"
+    }
     root_block_device {
         volume_size = 30
         volume_type = "gp2"
