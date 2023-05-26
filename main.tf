@@ -16,7 +16,7 @@ variable "ami_name" {
 
 resource "aws_key_pair" "ec2key" {
   key_name   = "ec2key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/t3++JjTjwXuKBoX6eGePtbPeezA7LholRvqZDmh38ojlpgjaE2vGCcYW2LTvYq0SCnEH8uf7rUstNMCKsONnyKVKjoeXbjl26+BLSZRz/qHU2bQXABS+KHivqdcANCdVmqWS/l9ggfu7mWEJIItdUMp7ZELH0JfAH7nDMIm1pfpGSIAOUSVixMg9fIbnZ7qniPJSlO/jxoi6/4uuscjobdJCnsrhXdR32WUh04u4c1DjQu96bVhHvPnwsrtsaZnpQoQymOh1Dz2p3Rqcv+8I4EU2r34eqjy4lk7aXPCpBLMffPnVRzwrcb9hV9ij9pxQs0FYN0SGTlID005SRe4QvzWNfK12RXAI5xU1EDfDMH6Fez4bGn1jmqjRuaoO++W6KMaop50w1/0q7TMU4T4ChLnSNhKWdPrIAJrcbJvd4HXWg7bpFtLPz0TLHPGTLookCCYLtaol7TGfp51AmD9t2Vl6dLHxMq3ztNKgRtYfPEowo/1Dt4td3Y1bAA7OjcU= shin@MacBook-Air-3"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8tCxMyYTeEEzuwpgzvHS2W09yiq6ka1cCXkMmPY6JI162u7UWeVRP6YOx53vkIsv8xFhMnf/kAQAhZ0rnKJgvQYR6leM1/5QZqoX06RBZIXCv+oWMSscVuqgg0plq/9W1YXMKA6H4fpT/4qg8B3k7vSBnebajWOGq6OfvBiNtBm0d08YT+1SQbWFi5qTSSa0E8kcmpFeKItDP8+jE0visZ8qgWd6StRX4JsWwi8nkDektaI7Kc/YcuNYnk4cJjyltyB0/qhxTBglAbXciDfyLjWcS6tByqzESiUEtAVTP8kv3j3ZT8QVyKP/zv9qJpLE/RevGmfM7bSuZpi4jiwQqLU0FBKLwkqezWxT7yOKLSFsBM2OHUKKx5uQpn966f9Ll8ERpg1OjxYbp3+q1P90GKtRB61j0xQ69QUWzoAOnsHAmPovbPl5WMTK5GgkBUMPe15BUpB7/5hNNG+G8wQ+HDGL8LShwwkfeZvNGIufffUehm+Qq6NagFQilyUdm4a8= shin@MacBook-Air-3"
 }
 
 // vpc
@@ -73,8 +73,8 @@ ingress {
       "0.0.0.0/0"
     ]
     from_port     = 22
-    to_port   = 22
-    protocol  = "tcp"
+    to_port       = 22
+    protocol      = "tcp"
   }
 // Terraform removes the default rule, normally aws gives us
   egress {
