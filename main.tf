@@ -13,10 +13,13 @@ variable "availability_zone" {
 variable "ami_name" {
     default = "milal_cluster"
 }
+variable {
+    default ="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8tCxMyYTeEEzuwpgzvHS2W09yiq6ka1cCXkMmPY6JI162u7UWeVRP6YOx53vkIsv8xFhMnf/kAQAhZ0rnKJgvQYR6leM1/5QZqoX06RBZIXCv+oWMSscVuqgg0plq/9W1YXMKA6H4fpT/4qg8B3k7vSBnebajWOGq6OfvBiNtBm0d08YT+1SQbWFi5qTSSa0E8kcmpFeKItDP8+jE0visZ8qgWd6StRX4JsWwi8nkDektaI7Kc/YcuNYnk4cJjyltyB0/qhxTBglAbXciDfyLjWcS6tByqzESiUEtAVTP8kv3j3ZT8QVyKP/zv9qJpLE/RevGmfM7bSuZpi4jiwQqLU0FBKLwkqezWxT7yOKLSFsBM2OHUKKx5uQpn966f9Ll8ERpg1OjxYbp3+q1P90GKtRB61j0xQ69QUWzoAOnsHAmPovbPl5WMTK5GgkBUMPe15BUpB7/5hNNG+G8wQ+HDGL8LShwwkfeZvNGIufffUehm+Qq6NagFQilyUdm4a8= shin@MacBook-Air-3"
+}
 
 resource "aws_key_pair" "ec2key" {
   key_name   = "ec2key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8tCxMyYTeEEzuwpgzvHS2W09yiq6ka1cCXkMmPY6JI162u7UWeVRP6YOx53vkIsv8xFhMnf/kAQAhZ0rnKJgvQYR6leM1/5QZqoX06RBZIXCv+oWMSscVuqgg0plq/9W1YXMKA6H4fpT/4qg8B3k7vSBnebajWOGq6OfvBiNtBm0d08YT+1SQbWFi5qTSSa0E8kcmpFeKItDP8+jE0visZ8qgWd6StRX4JsWwi8nkDektaI7Kc/YcuNYnk4cJjyltyB0/qhxTBglAbXciDfyLjWcS6tByqzESiUEtAVTP8kv3j3ZT8QVyKP/zv9qJpLE/RevGmfM7bSuZpi4jiwQqLU0FBKLwkqezWxT7yOKLSFsBM2OHUKKx5uQpn966f9Ll8ERpg1OjxYbp3+q1P90GKtRB61j0xQ69QUWzoAOnsHAmPovbPl5WMTK5GgkBUMPe15BUpB7/5hNNG+G8wQ+HDGL8LShwwkfeZvNGIufffUehm+Qq6NagFQilyUdm4a8= shin@MacBook-Air-3"
+  public_key = "${var.rsa_key}"
 }
 
 // vpc
