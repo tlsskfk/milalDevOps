@@ -28,9 +28,10 @@ resource "aws_vpc" "milal-vpc" {
   }
 }
 // public eip
-resource "aws_eip" "ip-milal-public" {
+resource "aws_eip" "milal-public-eip" {
   instance = "${aws_instance.milal_cluster.id}"
   vpc      = true
+  depends_on = [aws_instance.milal_cluster]
 }
 
 // subnets
@@ -48,7 +49,7 @@ ingress {
     cidr_blocks = [
       "0.0.0.0/0"
     ]
-from_port     = 22
+    from_port     = 22
     to_port   = 22
     protocol  = "tcp"
   }
@@ -63,13 +64,13 @@ from_port     = 22
 
 //k8s cluster ec2
 resource "aws_instance" "milal_cluster" {
-    ami             = "ami-0557a15b87f6559cf"
-    instance_type   = "t2.micro"
-    key_name        = "${var.ami_key_pair_name}"
-    security_groups = ["${aws_security_group.milal-ingress.id}"]
-    subnet_id       = "${aws_subnet.subnet-1-public.id}"
+    ami                     = "ami-0557a15b87f6559cf"
+    instance_type           = "t2.micro"
+    key_name                = "${var.ami_key_pair_name}"
+    vpc_security_group_ids  = ["${aws_security_group.milal-ingress.id}"]
+    subnet_id               = "${aws_subnet.subnet-1-public.id}"
 
-    tags            = {
+    tags                    = {
         Name = "${var.ami_name}"
       }
     
