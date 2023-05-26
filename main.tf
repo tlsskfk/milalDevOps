@@ -33,6 +33,14 @@ resource "aws_eip" "milal-public-eip" {
   vpc      = true
   depends_on = [aws_instance.milal_cluster]
 }
+//gateway
+resource "aws_internet_gateway" "milal-internet-gw" {
+  vpc_id  = "${aws_vpc.milal-vpc.id}"
+  
+  tags    = {
+      Name = "milal-internet-gw"
+    }
+}
 
 // subnets
 resource "aws_subnet" "subnet-1-public" {
