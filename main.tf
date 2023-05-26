@@ -14,8 +14,9 @@ variable "ami_name" {
     default = "milal_cluster"
 }
 
-variable "ami_key_pair_name" {
-    default = ""
+resource "aws_key_pair" "ec2key" {
+  key_name   = "ec2key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/t3++JjTjwXuKBoX6eGePtbPeezA7LholRvqZDmh38ojlpgjaE2vGCcYW2LTvYq0SCnEH8uf7rUstNMCKsONnyKVKjoeXbjl26+BLSZRz/qHU2bQXABS+KHivqdcANCdVmqWS/l9ggfu7mWEJIItdUMp7ZELH0JfAH7nDMIm1pfpGSIAOUSVixMg9fIbnZ7qniPJSlO/jxoi6/4uuscjobdJCnsrhXdR32WUh04u4c1DjQu96bVhHvPnwsrtsaZnpQoQymOh1Dz2p3Rqcv+8I4EU2r34eqjy4lk7aXPCpBLMffPnVRzwrcb9hV9ij9pxQs0FYN0SGTlID005SRe4QvzWNfK12RXAI5xU1EDfDMH6Fez4bGn1jmqjRuaoO++W6KMaop50w1/0q7TMU4T4ChLnSNhKWdPrIAJrcbJvd4HXWg7bpFtLPz0TLHPGTLookCCYLtaol7TGfp51AmD9t2Vl6dLHxMq3ztNKgRtYfPEowo/1Dt4td3Y1bAA7OjcU= shin@MacBook-Air-3"
 }
 
 // vpc
@@ -74,7 +75,7 @@ ingress {
 resource "aws_instance" "milal_cluster" {
     ami                     = "ami-0557a15b87f6559cf"
     instance_type           = "t2.micro"
-    key_name                = "${var.ami_key_pair_name}"
+    key_name                = "${aws_key_pair.ec2key.key_name}"
     vpc_security_group_ids  = ["${aws_security_group.milal-ingress.id}"]
     subnet_id               = "${aws_subnet.subnet-1-public.id}"
 
