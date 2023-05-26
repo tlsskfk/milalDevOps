@@ -49,6 +49,20 @@ resource "aws_subnet" "subnet-1-public" {
   vpc_id            = "${aws_vpc.milal-vpc.id}"
   availability_zone = "us-east-1a"
 }
+resource "aws_route_table" "route-table-milal" {
+  vpc_id = "${aws_vpc.milal-vpc.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.milal-internet-gw.id}"
+  }
+  tags = {
+    Name = "route-table-milal"
+  }
+}
+resource "aws_route_table_association" "subnet-association" {
+  subnet_id      = "${aws_subnet.subnet-1-public.id}"
+  route_table_id = "${aws_route_table.route-table-milal.id}"
+}
 
 // security group
 resource "aws_security_group" "milal-ingress" {
