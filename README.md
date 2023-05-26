@@ -22,6 +22,11 @@
   - [3.3 ConfigMaps](#33-configmaps)
   - [3.4 Services](#34-services)
   - [3.5 Containers](#35-containers)
+      - [3.4.1](#341)
+      - [3.4.2](#342)
+      - [3.4.3](#343)
+      - [3.4.4 Front-end/ NGINX](#344-front-end-nginx)
+      - [3.4.5](#345)
   - [3.9 Helm Chart](#39-helm-chart)
 - [4. Ansible](#4-ansible)
 - [5. Terraform](#5-terraform)
@@ -260,6 +265,31 @@ I think in most cases, a mixture of an imperative and key-pair.txt file is best 
 
 ## 3.4 Services
 ## 3.5 Containers
+#### 3.4.1
+
+#### 3.4.2
+
+#### 3.4.3
+
+#### 3.4.4 Front-end/ NGINX
+
+
+In our nginx conf, we will need to ...
+
+
+If we want to pass in an environment variable as the proxy address, we need to do a strange [workaround](https://serverfault.com/questions/577370/how-can-i-use-environment-variables-in-nginx-conf), since the nginx conf wont be able to pull env variables at startup.  Instead, we can adjust the dockerfile to look like this
+
+        FROM nginx:alpine
+        COPY --from=build /client/dist /usr/share/nginx/html
+        # need this step adjustment to set env for nginx.conf
+        ENV DOLLAR=$$$
+        COPY nginx.conf /etc/nginx/conf.d/nginx_envsubst.template
+        EXPOSE 80
+        CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/conf.d/nginx_envsubst.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+
+in the second step.  Normally, you could just do the last nginx... block, but we need to copy a template into nginx.conf, that exports the environment variables we want, and also adjust and "$" symbols with a ${DOLLAR} env, for example. Dockerfiles require two dollarsigns in order to input this special character.
+#### 3.4.5
+
 ## 3.9 Helm Chart
 
 # 4. Ansible
