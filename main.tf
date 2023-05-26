@@ -10,8 +10,8 @@ variable "availability_zone" {
     default = "us-east-1a"
 }
 
-variable "ami_key_pair_name" {
-    default = ""
+variable "ami_name" {
+    default = "milal_cluster"
 }
 
 variable "ami_key_pair_name" {
