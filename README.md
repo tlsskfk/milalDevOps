@@ -32,6 +32,8 @@
 - [5. Terraform](#5-terraform)
   - [5.1 Initialize Terraform](#51-initialize-terraform)
         - [Prerequisite: you need to have an authenticated account](#prerequisite-you-need-to-have-an-authenticated-account)
+  - [5.2](#52)
+  - [5.3 SSH](#53-ssh)
 - [6. Jenkins](#6-jenkins)
   - [6.1 ENV Variables](#61-env-variables)
   - [6.2 Github](#62-github)
@@ -311,6 +313,11 @@ Let's create a credentials script.  I am saving to my .bashrc file in the home d
  This way, whenever you start a new BASH process, your session should initialize your credentials for terraform.  Remember to name it exactly as such and understand the preference terraform has using these [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).  Now, you should be able terraform apply in the directory of your main.tf file.
 
 Use a boilerplate terraform file (you can find one in the docs/tutorials of the website) and terraform destroy after.
+
+## 5.2 
+## 5.3 SSH
+
+Follow this [example](https://medium.com/@hmalgewatta/setting-up-an-aws-ec2-instance-with-ssh-access-using-terraform-c336c812322f).  Read comments first
 
 # 6. Jenkins
 ## 6.1 ENV Variables
