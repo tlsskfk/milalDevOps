@@ -21,7 +21,8 @@
   - [3.2 Secrets](#32-secrets)
   - [3.3 ConfigMaps](#33-configmaps)
   - [3.4 Services](#34-services)
-  - [3.5 Helm Chart](#35-helm-chart)
+  - [3.5 Containers](#35-containers)
+  - [3.9 Helm Chart](#39-helm-chart)
 - [4. Ansible](#4-ansible)
 - [5. Terraform](#5-terraform)
   - [5.1 Initialize Terraform](#51-initialize-terraform)
@@ -258,7 +259,8 @@ I think in most cases, a mixture of an imperative and key-pair.txt file is best 
 
 
 ## 3.4 Services
-## 3.5 Helm Chart
+## 3.5 Containers
+## 3.9 Helm Chart
 
 # 4. Ansible
 
