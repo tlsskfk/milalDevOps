@@ -13,6 +13,11 @@ variable "availability_zone" {
 variable "ami_key_pair_name" {
     default = ""
 }
+
+variable "ami_key_pair_name" {
+    default = ""
+}
+
 // vpc
 resource "aws_vpc" "milal-vpc" {
   cidr_block = "10.0.0.0/24"
@@ -36,7 +41,7 @@ resource "aws_subnet" "subnet-1-public" {
 }
 
 // security group
-resource "aws_security_group" "milal-ingress-ssh" {
+resource "aws_security_group" "milal-ingress" {
 name   = "allow-all-sg"
 vpc_id = "${aws_vpc.milal-vpc.id}"
 ingress {
@@ -61,7 +66,7 @@ resource "aws_instance" "milal_cluster" {
     ami           = "ami-0557a15b87f6559cf"
     instance_type = "t2.micro"
     key_name = "${var.ami_key_pair_name}"
-    security_groups = ["${aws_security_group.ingress-all-test.id}"]
+    security_groups = ["${aws_security_group.milal-ingress.id}"]
 
     tags {
         Name = "${var.ami_name}"
