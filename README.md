@@ -34,6 +34,7 @@
         - [Prerequisite: you need to have an authenticated account](#prerequisite-you-need-to-have-an-authenticated-account)
   - [5.2](#52)
   - [5.3 SSH](#53-ssh)
+      - [5.3.1 Installing packages](#531-installing-packages)
 - [6. Jenkins](#6-jenkins)
   - [6.1 ENV Variables](#61-env-variables)
   - [6.2 Github](#62-github)
@@ -317,7 +318,33 @@ Use a boilerplate terraform file (you can find one in the docs/tutorials of the 
 ## 5.2 
 ## 5.3 SSH
 
-Follow this [example](https://medium.com/@hmalgewatta/setting-up-an-aws-ec2-instance-with-ssh-access-using-terraform-c336c812322f).  Read comments first
+Follow this [example](https://medium.com/@hmalgewatta/setting-up-an-aws-ec2-instance-with-ssh-access-using-terraform-c336c812322f).  Read comments first.  This is a way for us to SSH into the ec2 instance.
+
+#### 5.3.1 Installing packages
+
+You can copy paste this code (it is just basic packages we will need)
+
+update the system:
+        sudo su
+        apt update
+        apt upgrade -y
+
+update docker:
+        apt install docker.io -y
+        systemctl enable docker
+        systemctl start docker
+
+update kubernetes:
+        apt install kubelet kubeadm kubectl -y
+
+Reboot:
+        reboot
+
+Wait a minute and SSH back into it and it should give you a status log of resources, of which you will see docker.
+
+        
+
+
 
 # 6. Jenkins
 ## 6.1 ENV Variables
