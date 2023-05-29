@@ -6,3 +6,4 @@ venv
 .terraform
 env.sh
 .DS_Store
+kubeconfig.yaml
