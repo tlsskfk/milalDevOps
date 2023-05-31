@@ -46,6 +46,11 @@ resource "aws_internet_gateway" "milal-internet-gw" {
     }
 }
 
+//public hosted zone / url
+resource "aws_route53_zone" "milal-url" {
+  name = "steveboy.click"
+}
+
 // subnets
 resource "aws_subnet" "subnet-1-public" {
   cidr_block        = "${cidrsubnet(aws_vpc.milal-vpc.cidr_block, 3, 1)}"
@@ -77,26 +82,28 @@ ingress {
     protocol      = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-ingress {
-    from_port   = 6443
-    to_port     = 6443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
-  ingress {
-    from_port   = 2379
-    to_port     = 2380
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+# rules needed for cluster managament in vpc
+# ingress {
+#     from_port   = 6443
+#     to_port     = 6443
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  ingress {
-    from_port   = 10250
-    to_port     = 10252
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     from_port   = 2379
+#     to_port     = 2380
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+
+#   ingress {
+#     from_port   = 10250
+#     to_port     = 10252
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 // Terraform removes the default rule, normally aws gives us
   egress {
    from_port    = 0
