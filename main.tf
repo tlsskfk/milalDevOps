@@ -67,17 +67,35 @@ resource "aws_route_table_association" "subnet-association" {
   route_table_id = "${aws_route_table.route-table-milal.id}"
 }
 
-// security group
+// security groups
 resource "aws_security_group" "milal-ingress" {
 name   = "allow-all-sg"
 vpc_id = "${aws_vpc.milal-vpc.id}"
 ingress {
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
     from_port     = 22
     to_port       = 22
     protocol      = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ingress {
+    from_port   = 6443
+    to_port     = 6443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 2379
+    to_port     = 2380
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 10250
+    to_port     = 10252
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 // Terraform removes the default rule, normally aws gives us
   egress {
