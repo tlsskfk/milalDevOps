@@ -36,9 +36,6 @@
   - [5.3 SSH](#53-ssh)
       - [5.3.1 Installing packages](#531-installing-packages)
 - [6. Jenkins](#6-jenkins)
-  - [6.1 ENV Variables](#61-env-variables)
-  - [6.2 Github](#62-github)
-  - [6.3 Pl](#63-pl)
 
 
 
@@ -229,6 +226,10 @@ Then we can write our complimentary Node.js Code to return
 
 #### 2.6.6 Route53
 
+We are actually going to use cloudflare since they have a free DNS resolver, and route53 costs .5$ a month.  Create an A record with your eip given by your terraform show.
+The Cloudflare website should tell you to change nameservers associated with the domain registrar.  I initally bought it on AWS so I went into the console for this one.  In an enterprise environment, I would definitely consider the route53 hosted zone for sake of simplicity and organization, as I could provision it in my main.tf file and have it more easily visible as an infrastructure component.
+
+
 # 3. Kubernetes
 ## 3.1 Pod Designs
 ## 3.2 Secrets
@@ -351,8 +352,5 @@ For macOS users:
 
 
 # 6. Jenkins
-## 6.1 ENV Variables
-## 6.2 Github
-## 6.3 Pl
 
 
