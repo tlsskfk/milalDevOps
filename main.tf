@@ -47,9 +47,9 @@ resource "aws_internet_gateway" "milal-internet-gw" {
 }
 
 //public hosted zone / url
-resource "aws_route53_zone" "milal-url" {
-  name = "steveboy.click"
-}
+# resource "aws_route53_zone" "milal-url" {
+#   name = "steveboy.click"
+# }
 
 // subnets
 resource "aws_subnet" "subnet-1-public" {
