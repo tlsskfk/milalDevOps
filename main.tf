@@ -127,7 +127,7 @@ resource "aws_instance" "milal_cluster" {
       }
     
     root_block_device {
-        volume_size = 30
+        volume_size = 20
         volume_type = "gp2"
         tags        = {
             Name = "milal_cluster"
