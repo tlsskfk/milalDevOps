@@ -83,7 +83,7 @@ ingress {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-# rules needed for cluster managament in vpc
+# rules needed for cluster multicloud managament in vpc
 # normally this should be 6443:6443 but i am running docker at 6443
 ingress {
     from_port   = 6443
