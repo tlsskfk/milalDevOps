@@ -343,8 +343,8 @@ Reboot:
 
 Wait a minute and SSH back into it and it should give you a status log of resources, of which you will see docker.
 Let's go back to our local machine, or where you wish to have the control node.  Since I am using macOS, I will be using k3d (uses k3s) to create a local cluster, in which we can connect our ec2 to.  If you're using windows or linux, you can use apt-get or chocolatey to find suitable products like k3s, kubeadm, etc.
-For macOS users:
-        brew install k3d
+For linux users:
+        brew install k3
         k3d cluster create mycluster
 
         
