@@ -95,7 +95,14 @@ ingress {
   ingress {
     from_port   = 51820
     to_port     = 51820
-    protocol    = "tcp"
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 37283
+    to_port     = 37283
+    protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 // Terraform removes the default rule, normally aws gives us
